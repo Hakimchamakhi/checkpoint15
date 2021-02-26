@@ -8,8 +8,18 @@ class App extends Component {
       imgSrc: "/profilphoto.png",
       profession: "Web developer"
     },
-    show: false
+    show: false,
+    timer: 0
   };
+
+  componentDidMount(){
+    setInterval(() => {
+      this.setState({
+        ...this.state,
+        timer: this.state.timer + 1
+      });
+    }, 1000);
+  }
 
   handleShowPerson = () => {
     this.setState({
@@ -23,7 +33,6 @@ class App extends Component {
       <div className="App" style={{minHeight:700,backgroundColor:"ButtonHighlight",padding:20,textAlign:"center"}}>
         {this.state.show && (
           <>
-            <h1 id="time">Time since the component has mounted : {new Date().toLocaleTimeString()}</h1>
             <h1>My name is : {this.state.Person.fullName}</h1>
             <h1>My BIO : {this.state.Person.bio}</h1>
             <h1>My profession : {this.state.Person.profession}</h1>
@@ -32,6 +41,7 @@ class App extends Component {
         )}
 
         <button onClick={this.handleShowPerson}style={{letterSpacing:2,border:"solid",borderRadius:"20%",padding:6,textDecoration:"none"}}>Click me</button>
+        <h1 id="time">Time since the component has mounted : {this.state.timer} Secondes</h1>
       </div>
     );
   }
